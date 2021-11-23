@@ -5,6 +5,7 @@ import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import React from "react";
 import Feed from "./components/feed/Feed";
 import Profile from "./components/profile/Profile";
+import Login from "./components/login/Login";
 
 function App(props) {
     return (
@@ -18,6 +19,7 @@ function App(props) {
                             <Route path={""} element={<Feed/>}/>
                             <Route path={"feed"} element={<Feed/>}/>
                             <Route path={"profile"} element={<Profile/>}/>
+                            <Route path={"login"} element={<Login/>}/>
                         </Routes>
                     </div>
                 </BrowserRouter>

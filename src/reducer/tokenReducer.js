@@ -1,9 +1,7 @@
 import {ADD_TOKEN, GET_TOKEN} from "../constant/actionType";
 
-const initState = {
-    token: 'dadwadad'
-}
-const tokenReducer = (state = initState, action) => {
+
+const tokenReducer = (state = {}, action) => {
     switch (action.type) {
         case ADD_TOKEN:
             return {

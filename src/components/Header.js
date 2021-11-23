@@ -30,6 +30,14 @@ const Header = (props) => {
                             />
                             <Button variant="outline-success">Search</Button>
                         </Form>
+                        <Nav
+                            className=""
+                            style={{maxHeight: '100px'}}
+                            navbarScroll>
+                            <NavLink to={"login"} className={"nav-link"}>
+                                Login
+                            </NavLink>
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
