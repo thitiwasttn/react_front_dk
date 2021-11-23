@@ -9,7 +9,7 @@ import Profile from "./components/profile/Profile";
 function App(props) {
     return (
         <div>
-            <div >
+            <div>
                 <BrowserRouter>
                     <Header/>
                     <div className={"container"}>

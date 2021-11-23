@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {getFeed, getUserProfile} from "./FeedService";
 import './Feed.css'
-import {retry} from "@reduxjs/toolkit/query";
+import PostInput from "../postInput/PostInput";
 
 const Feed = (props) => {
     let tempProfiles = []
@@ -76,8 +76,12 @@ const Feed = (props) => {
         return ret;
     };
 
+
+
+
     return (
-        <div>
+        <div >
+            <PostInput/>
             {postState.map((value) => {
                 return (
                     <div className={"margin5"} key={value.id}>
