@@ -10,3 +10,12 @@
 .center {
     align-items: center;
 }
+
+.image_size_small {
+    width: 50px;
+    height: auto;
+}
+
+.margin_left {
+    margin-left: 5px;
+}

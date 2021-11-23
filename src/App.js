@@ -7,7 +7,6 @@ import Feed from "./components/feed/Feed";
 import Profile from "./components/profile/Profile";
 
 function App(props) {
-    console.log(props.tokenStore);
     return (
         <div>
             <div >
@@ -28,7 +27,6 @@ function App(props) {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         tokenStore: state.tokenReducer
     }
