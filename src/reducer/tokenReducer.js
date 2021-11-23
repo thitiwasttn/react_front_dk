@@ -1,4 +1,4 @@
-import {ADD_TOKEN, ADD_USER, DEL_TOKEN, GET_TOKEN} from "../constant/actionType";
+import {ADD_TOKEN, ADD_USER, DEL_TOKEN, DEL_USER, GET_TOKEN} from "../constant/actionType";
 
 
 const tokenReducer = (state = {}, action) => {
@@ -17,6 +17,11 @@ const tokenReducer = (state = {}, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case DEL_USER:
+            return {
+                ...state,
+                user: null
             }
         default:
             break;

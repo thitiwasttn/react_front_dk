@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {ADD_TOKEN, DEL_TOKEN} from "../../constant/actionType";
+import {ADD_TOKEN, DEL_TOKEN, DEL_USER} from "../../constant/actionType";
 import {connect} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 import {getUser, getUserId} from "./ProfileService";
@@ -37,6 +37,7 @@ const Profile = (props) => {
 
     function logout() {
         props.del_token();
+        props.del_user();
         navigate('/login')
     }
 
@@ -128,6 +129,9 @@ const mapDispatchToProps = dispatch => {
     return {
         del_token: () => {
             return dispatch({type: DEL_TOKEN})
+        },
+        del_user: () => {
+            return dispatch({type: DEL_USER})
         }
     }
 }

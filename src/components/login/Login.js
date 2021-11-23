@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
-import {ADD_TOKEN, ADD_USER} from "../../constant/actionType";
+import {ADD_TOKEN, ADD_USER, DEL_USER} from "../../constant/actionType";
 import {login} from "./LoginService";
 import {useNavigate} from 'react-router-dom';
 
@@ -9,9 +9,8 @@ const Login = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('props.tokenStore', props.tokenStore);
         if (props.tokenStore.token) {
-            navigate("/profile")
+            navigate(`/profile/${props.tokenStore.user.id}`)
         }
     }, [])
     const [state, setState] = useState({
@@ -95,6 +94,9 @@ const mapDispatchToProps = dispatch => {
         },
         addUser: (user) => {
             return dispatch({type: ADD_USER, user: user})
+        },
+        delUser: () => {
+            return dispatch({type: DEL_USER})
         }
     }
 }

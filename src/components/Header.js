@@ -1,8 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Container, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {BrowserRouter, NavLink} from "react-router-dom";
+import {connect} from "react-redux";
 
 const Header = (props) => {
+    const [word, setWord] = useState("");
+    const [isLogin, setIsLogin] = useState(false);
+    useEffect(() => {
+        if (props.tokenStore.user) {
+            setIsLogin(true)
+            setWord(props.tokenStore.user.user_profile.first_name)
+        } else {
+            setIsLogin(false);
+            setWord("Login")
+        }
+    }, [])
+
+    /*const user = () => {
+        let ret = (<div/>);
+        console.log('userState.user_profile >>', (userState === null));
+        if (userState.id !== undefined) {
+            ret = (
+                <div>
+                    {userState.user_profile.first_name} {userState.user_profile.last_name}
+                </div>
+            );
+        } else {
+            ret = (
+                <div>
+                    Login
+                </div>
+            )
+        }
+        return ret;
+    }*/
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -34,9 +65,11 @@ const Header = (props) => {
                             className=""
                             style={{maxHeight: '100px'}}
                             navbarScroll>
-                            <NavLink to={"login"} className={"nav-link"}>
-                                Login
-                            </NavLink>
+                            {!isLogin ? <NavLink to={"login"} className={"nav-link"}>
+                                {word}
+                            </NavLink> : <NavLink to={"profile"} className={"nav-link"}>
+                                {word}
+                            </NavLink>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
@@ -45,4 +78,9 @@ const Header = (props) => {
     )
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        tokenStore: state.tokenReducer
+    }
+}
+export default connect(mapStateToProps, null)(Header);
