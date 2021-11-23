@@ -1,4 +1,4 @@
-import {ADD_TOKEN, GET_TOKEN} from "../constant/actionType";
+import {ADD_TOKEN, DEL_TOKEN, GET_TOKEN} from "../constant/actionType";
 
 
 const tokenReducer = (state = {}, action) => {
@@ -7,6 +7,11 @@ const tokenReducer = (state = {}, action) => {
             return {
                 ...state,
                 token: action.payload
+            }
+        case DEL_TOKEN:
+            return {
+                ...state,
+                token: null
             }
         default:
             break;

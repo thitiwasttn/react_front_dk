@@ -2,11 +2,17 @@ import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import {ADD_TOKEN} from "../../constant/actionType";
 import {login} from "./LoginService";
+import {useNavigate} from 'react-router-dom';
 
 const Login = (props) => {
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        console.log(props.tokenStore);
+        console.log('props.tokenStore', props.tokenStore);
+        if (props.tokenStore.token) {
+            navigate("/profile")
+        }
     }, [])
     const [state, setState] = useState({
         username: '',
@@ -21,16 +27,11 @@ const Login = (props) => {
 
 
     const onSubmit = async () => {
-        console.log('a');
-        /*login(state.username, state.password).then(value => {
-            console.log(value);
+        login(state.username, state.password).then(value => {
             props.addToken(value.data.jwt);
-            console.log(props.tokenStore);
-        })*/
-        await props.addToken('okgeorgkoergkpo');
-        console.log('b');
-        console.log(await props.tokenStore);
-        console.log('c');
+            navigate("/profile")
+        })
+
     };
 
     return (
@@ -93,4 +94,5 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
