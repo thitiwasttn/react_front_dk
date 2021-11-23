@@ -13,3 +13,8 @@ export const getUser = (token) => {
         }
     });
 }
+
+export const getUserId = (id) => {
+    // const token = store.getState().tokenReducer.token;
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}users/${id}`);
+}

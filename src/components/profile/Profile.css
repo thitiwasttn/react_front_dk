@@ -1,0 +1,16 @@
+.image_profile {
+    width: 300px;
+    height: auto;
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
