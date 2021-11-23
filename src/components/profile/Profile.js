@@ -36,6 +36,7 @@ const Profile = (props) => {
     }, [])
 
     function logout() {
+        props.test(null, false);
         props.del_token();
         props.del_user();
         navigate('/login')

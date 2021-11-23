@@ -4,36 +4,8 @@ import {BrowserRouter, NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 
 const Header = (props) => {
-    const [word, setWord] = useState("");
-    const [isLogin, setIsLogin] = useState(false);
     useEffect(() => {
-        if (props.tokenStore.user) {
-            setIsLogin(true)
-            setWord(props.tokenStore.user.user_profile.first_name)
-        } else {
-            setIsLogin(false);
-            setWord("Login")
-        }
     }, [])
-
-    /*const user = () => {
-        let ret = (<div/>);
-        console.log('userState.user_profile >>', (userState === null));
-        if (userState.id !== undefined) {
-            ret = (
-                <div>
-                    {userState.user_profile.first_name} {userState.user_profile.last_name}
-                </div>
-            );
-        } else {
-            ret = (
-                <div>
-                    Login
-                </div>
-            )
-        }
-        return ret;
-    }*/
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -48,9 +20,9 @@ const Header = (props) => {
                             <NavLink to={"feed"} className={"nav-link"}>
                                 Feed
                             </NavLink>
-                            <NavLink to={"profile"} className={"nav-link"}>
+                            {/*<NavLink to={"profile"} className={"nav-link"}>
                                 Profile
-                            </NavLink>
+                            </NavLink>*/}
                         </Nav>
                         <Form className="d-flex">
                             <FormControl
@@ -65,10 +37,11 @@ const Header = (props) => {
                             className=""
                             style={{maxHeight: '100px'}}
                             navbarScroll>
-                            {!isLogin ? <NavLink to={"login"} className={"nav-link"}>
-                                {word}
-                            </NavLink> : <NavLink to={"profile"} className={"nav-link"}>
-                                {word}
+
+                            {!props.isLogin ? <NavLink to={"login"} className={"nav-link"}>
+                                {props.name}
+                            </NavLink> : <NavLink to={"profile/" + props.user.id} className={"nav-link"}>
+                                {props.name}
                             </NavLink>}
                         </Nav>
                     </Navbar.Collapse>

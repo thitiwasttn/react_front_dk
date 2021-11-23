@@ -29,10 +29,13 @@ const Login = (props) => {
         login(state.username, state.password).then(value => {
             props.addToken(value.data.jwt);
             props.addUser(value.data.user);
+            props.test(value.data.user, true);
+
             navigate(`/profile/${value.data.user.id}`)
         })
 
     };
+
 
     return (
         <div className={"col-6 mt-5 mx-auto card"}>
