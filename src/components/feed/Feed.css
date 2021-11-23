@@ -1,0 +1,12 @@
+.margin5 {
+    margin-top: 5px;
+}
+
+.image_size {
+    width: 300px;
+    height: auto;
+}
+
+.center {
+    align-items: center;
+}
