@@ -6,12 +6,14 @@ import {getUser, getUserId} from "./ProfileService";
 import {getUserProfile} from "../feed/FeedService";
 import './Profile.css'
 import {getUserRole} from "../service/roleService";
+import {useParams, useLocation} from "react-router-dom";
 
 const Profile = (props) => {
+    const params = useParams();
+    const location = useLocation();
+    const id = params.id;
     const navigate = useNavigate();
-    const [user, setUser] = useState({});
     const [profile, setProfile] = useState({});
-    const [isReady, setReady] = useState(false);
     const [roles, setRoles] = useState([]);
     const [userFull, setUserFull] = useState([]);
 
@@ -19,20 +21,18 @@ const Profile = (props) => {
         getUserId(id).then(value => {
             setUserFull(value.data);
             setProfile(value.data.user_profile)
+            setRoles(value.data.role_customs);
         })
-        loadRole(id)
+        // loadRole(id)
     }
 
     useEffect(() => {
-        if (!props.tokenStore.token) {
+        if ((!id || !props.tokenStore.token)) {
             logout();
         }
-        getUser(props.tokenStore.token).then(value => {
-            setUser(value.data);
-            loadUserId(value.data.id)
-
-        })
-
+        if (props.tokenStore.user) {
+            loadUserId(id)
+        }
     }, [])
 
     function logout() {
@@ -40,17 +40,17 @@ const Profile = (props) => {
         navigate('/login')
     }
 
-    function loadRole(user_id) {
+    /*function loadRole(user_id) {
         getUserRole(user_id).then(value => {
             setRoles(value.data);
         })
-    }
+    }*/
 
     const profileDiv = () => {
         let ret = (<></>);
         if (profile.id !== undefined) {
             ret = (
-                <div className={"row"}>
+                <div className={"row"} style={{marginTop: "50px"}}>
                     <div className={"col-12"}>
                         <img className={"rounded-circle image_profile"}
                              src={process.env.REACT_APP_IMAGE_URL + profile.image_profile.formats.medium.url}
@@ -100,6 +100,11 @@ const Profile = (props) => {
                             })}
                         </div>
                     </div>
+                    <div className={""} style={{marginTop: "50px"}}>
+                        <button onClick={logout} className={"btn btn-danger"}>
+                            logout
+                        </button>
+                    </div>
                 </div>
             );
         }
@@ -108,11 +113,7 @@ const Profile = (props) => {
     return (
         <div className={"row text-center margin-top"}>
             {profileDiv()}
-            <div className={"margin-top"}>
-                <button onClick={logout} className={"btn btn-danger"}>
-                    logout
-                </button>
-            </div>
+
         </div>
     )
 }

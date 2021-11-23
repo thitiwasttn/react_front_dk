@@ -19,6 +19,7 @@ function App(props) {
                             <Route path={""} element={<Feed/>}/>
                             <Route path={"feed"} element={<Feed/>}/>
                             <Route path={"profile"} element={<Profile/>}/>
+                            <Route path={"profile/:id"} element={<Profile/>}/>
                             <Route path={"login"} element={<Login/>}/>
                         </Routes>
                     </div>

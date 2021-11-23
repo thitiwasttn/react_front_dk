@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
-import {ADD_TOKEN} from "../../constant/actionType";
+import {ADD_TOKEN, ADD_USER} from "../../constant/actionType";
 import {login} from "./LoginService";
 import {useNavigate} from 'react-router-dom';
 
@@ -29,7 +29,8 @@ const Login = (props) => {
     const onSubmit = async () => {
         login(state.username, state.password).then(value => {
             props.addToken(value.data.jwt);
-            navigate("/profile")
+            props.addUser(value.data.user);
+            navigate(`/profile/${value.data.user.id}`)
         })
 
     };
@@ -91,6 +92,9 @@ const mapDispatchToProps = dispatch => {
     return {
         addToken: (token) => {
             return dispatch({type: ADD_TOKEN, payload: token})
+        },
+        addUser: (user) => {
+            return dispatch({type: ADD_USER, user: user})
         }
     }
 }
