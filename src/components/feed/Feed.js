@@ -19,13 +19,12 @@ const Feed = (props) => {
     }
 
     useEffect(() => {
-        console.log('useEffect');
         loadFeed();
     }, []);
 
 
     const imageDiv = (image) => {
-        let imageURl = process.env.REACT_APP_IMAGE_URL + image.formats.medium.url;
+        let imageURl = process.env.REACT_APP_IMAGE_URL + image.formats.small.url;
         return (
             <img key={image.id} className={"rounded image_size margin_left"}
                  src={imageURl} alt={image.name}/>
@@ -77,11 +76,13 @@ const Feed = (props) => {
     };
 
 
-
+    const loadFeedPost = () => {
+        loadFeed();
+    }
 
     return (
-        <div >
-            <PostInput/>
+        <div>
+            <PostInput loadFeed={loadFeedPost.bind(this)}/>
             {postState.map((value) => {
                 return (
                     <div className={"margin5"} key={value.id}>
