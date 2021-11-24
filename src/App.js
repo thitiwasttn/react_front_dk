@@ -6,6 +6,7 @@ import React, {useState, useEffect} from "react";
 import Feed from "./components/feed/Feed";
 import Profile from "./components/profile/Profile";
 import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 
 function App(props) {
     const [stateName, setStateName] = useState('Login')
@@ -54,6 +55,7 @@ function App(props) {
                             <Route path={"profile"} element={<Profile test={updateText.bind(this)}/>}/>
                             <Route path={"profile/:id"} element={<Profile test={updateText.bind(this)}/>}/>
                             <Route path={"login"} element={<Login test={updateText.bind(this)}/>}/>
+                            <Route path={"register"} element={<Register/>}/>
                         </Routes>
                     </div>
                 </BrowserRouter>

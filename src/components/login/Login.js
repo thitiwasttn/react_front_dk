@@ -33,8 +33,11 @@ const Login = (props) => {
 
             navigate(`/profile/${value.data.user.id}`)
         })
-
     };
+
+    const register = () => {
+        navigate(`/register`)
+    }
 
 
     return (
@@ -42,7 +45,7 @@ const Login = (props) => {
             <div className={"card-body"}>
                 <form>
                     <div className={"form-group"}>
-                        <label htmlFor="username">User Name</label>
+                        <label htmlFor="username">email</label>
                         <input
                             type="text"
                             className={"form-control"}
@@ -73,7 +76,7 @@ const Login = (props) => {
                         <button
                             type={"button"}
                             className={"btn my-1"}
-                            onClick={onSubmit}
+                            onClick={register}
                         >
                             register
                         </button>
