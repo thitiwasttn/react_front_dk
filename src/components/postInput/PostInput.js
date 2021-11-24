@@ -35,7 +35,7 @@ const PostInput = (props) => {
 
     return (
         isLoggin ?
-            <div className={"shadow p-3 mb-5 bg-white rounded margin-top"}>
+            <div key={new Date()} className={"shadow p-3 mb-5 bg-white rounded margin-top"}>
                 <form>
                     <div className={"form-group"}>
                         <label htmlFor="title">title</label>
