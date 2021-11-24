@@ -26,3 +26,19 @@ export const uploadFileRef = (file, ref, field, refId, token) => {
         }
     });
 }
+
+export const findPost = (id) => {
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}posts/findDetail/${id}`);
+}
+
+export const addComment = (message, postId, token) => {
+    return axios.post(`${process.env.REACT_APP_BACKEND_URL}comment-posts/comment-post`,
+        {
+            detail: message,
+            post: postId
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+}

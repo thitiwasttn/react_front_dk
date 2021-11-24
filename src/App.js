@@ -7,6 +7,8 @@ import Feed from "./components/feed/Feed";
 import Profile from "./components/profile/Profile";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import Post from "./components/post/Post";
+import ViewPost from "./components/view-post/ViewPost";
 
 function App(props) {
     const [stateName, setStateName] = useState('Login')
@@ -56,6 +58,7 @@ function App(props) {
                             <Route path={"profile/:id"} element={<Profile test={updateText.bind(this)}/>}/>
                             <Route path={"login"} element={<Login test={updateText.bind(this)}/>}/>
                             <Route path={"register"} element={<Register/>}/>
+                            <Route path={"post/:id"} element={<ViewPost/>}/>
                         </Routes>
                     </div>
                 </BrowserRouter>

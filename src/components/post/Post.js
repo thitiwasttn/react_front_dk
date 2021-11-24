@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const Post = (props) => {
     const getDivProfile = user_profile => {
         let ret = (<></>);
-        
+        // console.log('user_profile >>', user_profile);
         ret = (
             <div>
                 <img key={user_profile.id + user_profile.name} className={"rounded image_size_small"}
@@ -38,6 +38,10 @@ const Post = (props) => {
             <>{message}</>
         );
     };
+
+    useEffect(() => {
+        // console.log('props.data.post_by ', props.data.post_by);
+    },[])
     return (
         <div className={"margin5"} key={props.data.id}>
             <div className={"card"}>
