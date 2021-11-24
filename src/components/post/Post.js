@@ -22,11 +22,16 @@ const Post = (props) => {
     };
 
     const imageDiv = (image) => {
-        let imageURl = process.env.REACT_APP_IMAGE_URL + image.formats.small.url;
-        return (
-            <img key={image.id + "_" + image.name} className={"rounded image_size margin_left"}
-                 src={imageURl} alt={image.name}/>
-        )
+        let ret = (<></>)
+        if (image.mime.includes('image')) {
+
+            let imageURl = process.env.REACT_APP_IMAGE_URL + image.formats.small.url;
+            ret = (
+                <img key={image.id + "_" + image.name} className={"rounded image_size margin_left"}
+                     src={imageURl} alt={image.name}/>
+            );
+        }
+        return ret;
     };
 
     const likeDisplay = likes => {

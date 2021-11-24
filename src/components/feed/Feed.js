@@ -7,7 +7,7 @@ import Post from "../post/Post";
 const Feed = (props) => {
     const [postState, setPostStete] = useState([]);
     const [profile, setProfile] = useState([]);
-    const loadFeed = () => {
+    const loadFeed = async () => {
         getFeed().then(value => {
             // let temp = [...postState];
             // temp.push(...value.data);
