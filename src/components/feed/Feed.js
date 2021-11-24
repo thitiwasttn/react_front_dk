@@ -13,13 +13,8 @@ const Feed = (props) => {
     const loadFeed = async () => {
         let temp = [];
         await getFeed().then(value => {
-            // let temp = [...postState];
-            // temp.push(...value.data);
-            /*value.data.map(x => {
-                getProfileV2(x.post_by.user_profile)
-            })*/
             temp = value.data;
-            setPostStete(value.data)
+            // setPostStete(value.data)
         })
 
         let newState = [];
