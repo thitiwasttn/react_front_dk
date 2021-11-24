@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import './Comment.css'
 import {addComment} from "../service/PostService";
 
 const Comment = (props) => {
     const commentRef = React.createRef();
+
+    const [canComment, setCanComment] = useState(false);
 
     async function onclickComment() {
         // addComment()
@@ -17,15 +19,23 @@ const Comment = (props) => {
         props.loadPost();
     }
 
+    useEffect(() => {
+        if (props.tokenStore.token) {
+            setCanComment(true);
+        } else {
+            setCanComment(false);
+        }
+    }, [])
+
     return (
         <div>
             <div className="form-group">
                 <label htmlFor="comments">comment</label>
-                <textarea className="form-control" ref={commentRef} id="comments" rows="3"/>
+                <textarea disabled={!canComment} className="form-control" ref={commentRef} id="comments" rows="3"/>
             </div>
 
             <div className={"text-right margin-top"}>
-                <button
+                <button disabled={!canComment}
                     onClick={onclickComment}
                     className={"btn btn-outline-success"}>
                     comment

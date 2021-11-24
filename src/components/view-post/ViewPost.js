@@ -10,6 +10,7 @@ import ListComment from "../comment/ListComment";
 const ViewPost = (props) => {
     const params = useParams();
     const post_id = params.id;
+    const [canComment, setCanComment] = useState(false);
     const [postState, setPostState] = useState([]);
 
     async function loadPost() {
@@ -34,6 +35,11 @@ const ViewPost = (props) => {
 
     useEffect(() => {
         loadPost()
+        if (props.tokenStore.token) {
+            setCanComment(true);
+        } else {
+            setCanComment(false);
+        }
     }, [])
 
     return (
@@ -58,4 +64,11 @@ const ViewPost = (props) => {
     )
 }
 
-export default connect()(ViewPost);
+const mapStateToProps = state => {
+    return {
+        tokenStore: state.tokenReducer
+    }
+}
+
+
+export default connect(mapStateToProps, null)(ViewPost);
