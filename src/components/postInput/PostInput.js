@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './PostInput.css'
 import {connect} from "react-redux";
+import {addPost} from "../service/PostService";
 
 const PostInput = (props) => {
     const [isLoggin, setIsLoggin] = useState(false);
@@ -23,8 +24,12 @@ const PostInput = (props) => {
         setDataState(tempState);
     }
 
-    function onClickPost(event) {
+    async function onClickPost(event) {
         event.preventDefault();
+        await addPost(dataState.title,
+            dataState.detail,
+            props.tokenStore.user.id,
+            props.tokenStore.token);
         props.loadFeed();
     }
 
