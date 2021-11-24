@@ -31,7 +31,6 @@ const PostInput = (props) => {
     function onFile(event) {
         let files = event.target.files;
         let filesArr = Array.prototype.slice.call(files);
-        console.log('filesArr >>', filesArr);
         // let tempState = [...imageState];
         let temp = [];
         setImageStateFile(filesArr);

@@ -4,8 +4,11 @@ import {ADD_TOKEN, ADD_USER, DEL_USER} from "../../constant/actionType";
 import ProfileInput from "./ProfileInput";
 import RoleInput from "./RoleInput";
 import {createUserProfile, userRegister} from "../service/RegisterService";
+import {uploadFileRef} from "../service/PostService";
+import {useNavigate} from "react-router-dom";
 
 const Register = (props) => {
+    const navigate = useNavigate();
     const [user, setUser] = useState({
         username: '',
         email: '',
@@ -35,6 +38,8 @@ const Register = (props) => {
     })
 
     const [stateNumber, setStateNumber] = useState(0);
+
+    const [imageState, setImageState] = useState({});
 
     function userChange(event) {
         let tempState = {...user}
@@ -73,15 +78,30 @@ const Register = (props) => {
         await setSp_roleState({
             sp_roles: temp
         })
-
-        await userRegister(user, role, sp_roleState).then(async (value) => {
+        let tempRole = {
+            role_customs: {
+                id: rolex
+            }
+        }
+        let tempSpRole = {
+            sp_roles: temp
+        }
+        await userRegister(user, tempRole, tempSpRole).then(value => {
             profile.user_profile.user = value.data.user.id
-            await createUserProfile(profile.user_profile, value.data.jwt).then(value1 => {
-                console.log(value1.data);
+            createUserProfile(profile.user_profile, value.data.jwt).then(value1 => {
+                uploadFileRef(imageState, 'user_profile', 'image_profile', value1.data.id, value.data.jwt)
+                navigate('/login');
             })
         })
     }
 
+    const regis = () => {
+
+    }
+
+    const setImageStateHandel = async (imageFile) => {
+        await setImageState(imageFile);
+    }
     const inputView = () => {
         let ret = (<></>)
         if (stateNumber === 0) {
@@ -125,7 +145,9 @@ const Register = (props) => {
                 </div>
             );
         } else if (stateNumber === 1) {
-            ret = (<ProfileInput profile={profile} setProfile={onSetProfile.bind(this)}
+            ret = (<ProfileInput profile={profile}
+                                 setProfile={onSetProfile.bind(this)}
+                                 setImage={setImageStateHandel.bind(this)}
                                  setStateNumber={setStateNumber.bind(this, 2)}/>)
         } else if (stateNumber === 2) {
             ret = (<RoleInput handleSetRole={handleSetRole.bind(this)}/>)

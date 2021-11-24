@@ -55,7 +55,7 @@ const Profile = (props) => {
                 <div className={"row"} style={{marginTop: "50px"}}>
                     <div className={"col-12"}>
                         <img className={"rounded-circle image_profile"}
-                             src={process.env.REACT_APP_IMAGE_URL + profile.image_profile.formats.medium.url}
+                             src={process.env.REACT_APP_IMAGE_URL + profile.image_profile.url}
                              alt={profile.name}/>
                     </div>
                     <div className={"col-12"} style={{marginTop: "50px"}}>

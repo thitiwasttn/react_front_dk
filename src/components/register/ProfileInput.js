@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {uploadFileRef} from "../service/PostService";
 
 
 const ProfileInput = (props) => {
@@ -10,6 +11,8 @@ const ProfileInput = (props) => {
             image_profile: ''
         }
     });
+    const [imageState, setImageState] = useState([]);
+    const [imageStateFile, setImageStateFile] = useState({});
 
     const imageRef = React.createRef();
 
@@ -20,13 +23,24 @@ const ProfileInput = (props) => {
     }
 
     async function next() {
-        console.log('next >>', profile);
+        props.setImage(imageStateFile)
         await props.setProfile(profile);
         await props.setStateNumber();
+        setImageState([]);
+        setImageStateFile({});
     }
 
     function onFile(event) {
-
+        let files = event.target.files;
+        let filesArr = Array.prototype.slice.call(files);
+        // let tempState = [...imageState];
+        let temp = [];
+        setImageStateFile(filesArr[0]);
+        for (let t of filesArr) {
+            let url = URL.createObjectURL(t);
+            temp.push(url)
+        }
+        setImageState(temp);
     }
 
 
@@ -73,8 +87,16 @@ const ProfileInput = (props) => {
                             <input type="file" className={"form-control"}
                                    id="image"
                                    name={"image"}
+                                   multiple
                                    ref={imageRef}
                                    onChange={onFile}/>
+                        </div>
+                        <div className={"margin-top"}>
+                            {imageState.map(value => {
+                                return (
+                                    <img key={value} className={"rounded image_size margin_left"} src={value} alt=""/>
+                                )
+                            })}
                         </div>
 
                         <div className={"text-center"}>
