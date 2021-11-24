@@ -2,10 +2,31 @@ import React, {useEffect, useState} from "react";
 import {Button, Container, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {BrowserRouter, NavLink} from "react-router-dom";
 import {connect} from "react-redux";
+import {getSearch} from "./service/SearchService";
+import SearchResult from "./SearchResult/SearchResult";
 
 const Header = (props) => {
+
     useEffect(() => {
     }, [])
+
+    let initState = {
+        posts: [],
+        users: []
+    }
+    const [searchResultState, setSerchResultState] = useState(initState);
+
+    function searchChange(event) {
+        let message = event.target.value;
+        if (message !== '') {
+            getSearch(message).then(value => {
+                setSerchResultState(value.data);
+            })
+        } else {
+            setSerchResultState(initState);
+        }
+    }
+
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -29,7 +50,7 @@ const Header = (props) => {
                                 type="search"
                                 placeholder="Search"
                                 className="me-2"
-                                aria-label="Search"
+                                aria-label="Search" onChange={searchChange}
                             />
                             <Button variant="outline-success">Search</Button>
                         </Form>
@@ -37,7 +58,6 @@ const Header = (props) => {
                             className=""
                             style={{maxHeight: '100px'}}
                             navbarScroll>
-
                             {!props.isLogin ? <NavLink to={"login"} className={"nav-link"}>
                                 {props.name}
                             </NavLink> : <NavLink to={"profile/" + props.user.id} className={"nav-link"}>
@@ -47,6 +67,10 @@ const Header = (props) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+
+            {/*<div className={"float-end"}>
+                <SearchResult data={searchResultState}/>
+            </div>*/}
         </div>
     )
 }
