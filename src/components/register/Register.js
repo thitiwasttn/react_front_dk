@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {ADD_TOKEN, ADD_USER, DEL_USER} from "../../constant/actionType";
 import ProfileInput from "./ProfileInput";
 import RoleInput from "./RoleInput";
-import {createUserProfile, userRegister} from "../service/RegisterService";
+import {createUserProfile, updateImage, userRegister} from "../service/RegisterService";
 import {uploadFileRef} from "../service/PostService";
 import {useNavigate} from "react-router-dom";
 
@@ -89,7 +89,9 @@ const Register = (props) => {
         await userRegister(user, tempRole, tempSpRole).then(value => {
             profile.user_profile.user = value.data.user.id
             createUserProfile(profile.user_profile, value.data.jwt).then(value1 => {
-                uploadFileRef(imageState, 'user_profile', 'image_profile', value1.data.id, value.data.jwt)
+                uploadFileRef(imageState, '', '', '', value.data.jwt).then(value2 => {
+                    updateImage(value2.data[0].id, value.data.jwt, value1.data.id)
+                })
                 navigate('/login');
             })
         })

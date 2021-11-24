@@ -22,3 +22,14 @@ export const createUserProfile = async (profile, token) => {
         }
     });
 }
+
+
+export const updateImage = async (imageId, token, profileId) => {
+    return axios.put(`${process.env.REACT_APP_BACKEND_URL}user-profiles/${profileId}`, {
+        image_profile: imageId
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+}
