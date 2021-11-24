@@ -8,23 +8,30 @@ const Feed = (props) => {
     const [postState, setPostStete] = useState([]);
     const [profile, setProfile] = useState([]);
 
+    const profileTest = [];
 
     const loadFeed = async () => {
-        await getFeed().then(async (value) => {
+        let temp = [];
+        await getFeed().then(value => {
             // let temp = [...postState];
             // temp.push(...value.data);
             /*value.data.map(x => {
                 getProfileV2(x.post_by.user_profile)
             })*/
-            for (let datum of value.data) {
-                await getProfileV2(datum.post_by.user_profile)
-            }
-            await setPostStete(value.data)
+            temp = value.data;
+            setPostStete(value.data)
         })
 
+        let newState = [];
+        for (let datum of temp) {
+            await getProfileV2(datum.post_by.user_profile)
+            let find = profileTest.find(value => value.id === datum.post_by.user_profile);
+            datum.post_by.user_profile = find;
+            newState.push(datum);
+        }
+        setPostStete(newState)
     }
 
-    const profileTest = [];
 
     useEffect(() => {
         loadFeed();
@@ -41,11 +48,10 @@ const Feed = (props) => {
         if (!isHave) {
             await getUserProfile(profileId).then(value => {
                 profileTest.push(value.data)
-                console.log('value.data.id >>', value.data.id);
+
                 let tempState = [...profile];
                 tempState.push(value.data);
                 setProfile(tempState)
-                console.log('profile >>', profile);
             })
         }
     }
@@ -77,18 +83,9 @@ const Feed = (props) => {
             <PostInput loadFeed={loadFeedPost.bind(this)}/>
             {
                 postState.map(value => {
-                    let ret = (
-                        <div></div>
-                    );
-                    profile.map(value1 => {
-                        if (value.post_by.user_profile === value1.id) {
-                            ret = (<Post key={value.id + "_" + value.title}
-                                         profilex={value1}
-                                         data={value}
-                            />);
-                        }
-                    })
-                    return ret;
+                    return (<Post
+                        key={value.id + "_" + value.title}
+                        data={value}/>)
                 })
             }
         </div>

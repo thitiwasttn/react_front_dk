@@ -3,16 +3,20 @@ import React from "react";
 const Post = (props) => {
     const getDivProfile = user_profile => {
         let ret = (<></>);
-        ret = (
-            <div>
-                <img key={props.profilex.id + props.profilex.name} className={"rounded image_size_small"}
-                     src={process.env.REACT_APP_IMAGE_URL + props.profilex.image_profile.formats.small.url}
-                     alt={props.profilex.name}/>
-                <span className={"margin_left"}>
-                            {props.profilex.first_name} {props.profilex.last_name}
-                        </span>
-            </div>
-        )
+        if (user_profile.id) {
+            console.log('user_profile >>', user_profile);
+            ret = (
+                <div>
+                    <img key={user_profile.id + user_profile.name} className={"rounded image_size_small"}
+                         src={process.env.REACT_APP_IMAGE_URL + user_profile.image_profile.formats.small.url}
+                         alt={user_profile.name}/>
+                    <span className={"margin_left"}>
+                                {user_profile.first_name} {user_profile.last_name}
+                            </span>
+                </div>);
+        }
+
+
         return ret;
     };
 
