@@ -23,7 +23,7 @@ const Post = (props) => {
         let ret = (<></>)
         if (image.mime.includes('image')) {
 
-            let imageURl = process.env.REACT_APP_IMAGE_URL + image.formats.small.url;
+            let imageURl = process.env.REACT_APP_IMAGE_URL + image.url;
             ret = (
                 <img key={image.id + "_" + image.name} className={"rounded image_size margin_left"}
                      src={imageURl} alt={image.name}/>
