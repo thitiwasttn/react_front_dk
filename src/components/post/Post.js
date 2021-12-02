@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 const Post = (props) => {
     const navigate = useNavigate();
     const getDivProfile = user_profile => {
+        console.log('user_profile >>', user_profile);
         let ret = (<></>);
         let attributes = user_profile.attributes;
         let image = attributes.image_profile.data.attributes;

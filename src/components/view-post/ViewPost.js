@@ -20,7 +20,7 @@ const ViewPost = (props) => {
         })
         let tempProfile = {};
         await getUserProfile(tempPost.post_by.user_profile).then(value => {
-            tempProfile = value.data;
+            tempProfile = value.data.data;
         })
         tempPost.post_by.user_profile = tempProfile;
         let tempArr = [];
