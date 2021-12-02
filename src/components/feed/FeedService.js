@@ -6,5 +6,5 @@ export const getFeed = () => {
 
 
 export const getUserProfile = (id) => {
-    return axios.get(`${process.env.REACT_APP_BACKEND_URL}user-profiles/${id}`);
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}user-profiles/${id}?populate=image_profile`);
 }

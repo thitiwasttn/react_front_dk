@@ -5,13 +5,15 @@ const Post = (props) => {
     const navigate = useNavigate();
     const getDivProfile = user_profile => {
         let ret = (<></>);
+        let attributes = user_profile.attributes;
+        let image = attributes.image_profile.data.attributes;
         ret = (
             <div>
-                <img key={user_profile.id + user_profile.name} className={"rounded image_size_small"}
-                     src={process.env.REACT_APP_IMAGE_URL + user_profile.image_profile.formats.small.url}
-                     alt={user_profile.name}/>
+                <img key={user_profile.id + attributes.name} className={"rounded image_size_small"}
+                     src={process.env.REACT_APP_IMAGE_URL + image.formats.small.url}
+                     alt={attributes.name}/>
                 <span className={"margin_left"}>
-                                {user_profile.first_name} {user_profile.last_name}
+                                {attributes.first_name} {attributes.last_name}
                             </span>
             </div>);
 

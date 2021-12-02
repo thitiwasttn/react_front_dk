@@ -42,10 +42,11 @@ const Feed = (props) => {
         }
         if (!isHave) {
             await getUserProfile(profileId).then(value => {
-                profileTest.push(value.data)
+                let data = value.data.data;
+                profileTest.push(data)
 
                 let tempState = [...profile];
-                tempState.push(value.data);
+                tempState.push(data);
                 setProfile(tempState)
             })
         }
